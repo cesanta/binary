@@ -12,6 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: make windows
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: mongoose.exe
+        tag: exe
+        overwrite: true
   macos:
     runs-on: macos-latest
     steps:
@@ -21,6 +27,5 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: mongoose_macos
-        asset_name: mongoose_macos
         tag: exe
         overwrite: true
