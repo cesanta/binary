@@ -1,0 +1,15 @@
+name: build
+on: push
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: sudo apt-get install musl-tools
+    - run: make linux
+    - run: make windows
+  macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: make macos
