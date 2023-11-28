@@ -1,5 +1,5 @@
 CWD ?= $(realpath $(CURDIR))
-VERSION ?= master
+VERSION ?= 7.12
 
 all: linux macos windows
 
