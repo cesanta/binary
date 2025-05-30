@@ -1,23 +1,24 @@
 CWD ?= $(realpath $(CURDIR))
+PROJ = mongoose/tutorials/http/http-server
 VERSION ?= 7.18
 
 all: linux macos windows
 
 linux: mongoose
-	$(MAKE) -C mongoose/examples/http-server example CC=musl-gcc CFLAGS_EXTRA="-static -s -Os"
-	mv mongoose/examples/http-server/example mongoose_$@
+	$(MAKE) -C $(PROJ) example CC=musl-gcc CFLAGS_EXTRA="-static -s -Os"
+	mv $(PROJ)/example mongoose_$@
 
 windows: mongoose
-	$(MAKE) -C mongoose/examples/http-server example \
-          CC="docker run --platform linux/amd64 --rm -v $(CWD):$(CWD) -w $(CWD)/mongoose/examples/http-server mdashnet/vc98 wine cl" \
+	$(MAKE) -C $(PROJ) example \
+          CC="docker run --platform linux/amd64 --rm -v $(CWD):$(CWD) -w $(CWD)/$(PROJ) mdashnet/vc98 wine cl" \
           CFLAGS="/MD /nologo /Os" \
           CFLAGS_EXTRA="-UMG_ENABLE_IPV6" \
           OUT=/Femongoose.exe
-	mv mongoose/examples/http-server/mongoose.exe .
+	mv $(PROJ)/mongoose.exe .
 
 macos: mongoose
-	$(MAKE) -C mongoose/examples/http-server example CFLAGS_EXTRA="-Os"
-	mv mongoose/examples/http-server/example mongoose_$@
+	$(MAKE) -C $(PROJ) example CFLAGS_EXTRA="-Os"
+	mv $(PROJ)/example mongoose_$@
 
 version:
 	echo $(VERSION)
